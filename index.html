@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Landscaping Services</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f0f5f0;
+      color: #333;
+    }
+
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 2em;
+      text-align: center;
+    }
+
+    main {
+      padding: 2em;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #2e7d32;
+    }
+
+    label {
+      display: block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5em;
+      margin-top: 0.5em;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 1.5em;
+      padding: 0.75em;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .result {
+      margin-top: 1em;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    footer {
+      background: #eee;
+      text-align: center;
+      padding: 1em;
+      margin-top: 2em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>GreenScape Landscaping</h1>
+    <p>Professional landscaping for a beautiful, functional outdoor space</p>
+  </header>
+
+  <main>
+    <!-- Project Estimator Section -->
+    <section>
+      <h2>Project Cost Estimator</h2>
+      <label for="yardSize">Yard Size (sq ft):</label>
+      <input type="number" id="yardSize" placeholder="Enter yard size" />
+
+      <label for="designOptions">Design Options:</label>
+      <select id="designOptions" multiple>
+        <option value="lawn">Lawn Installation</option>
+        <option value="garden">Garden Bed Design</option>
+        <option value="irrigation">Irrigation System</option>
+        <option value="patio">Patio or Deck</option>
+      </select>
+
+      <button onclick="calculateEstimate()">Estimate Cost</button>
+      <div class="result" id="estimateResult">Estimated Cost: $0</div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section>
+      <h2>Contact Us</h2>
+      <form onsubmit="handleForm(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required />
+
+        <label for="message">Message:</label>
+        <textarea id="message" rows="5" placeholder="Tell us about your project..."></textarea>
+
+        <button type="submit">Send Inquiry</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 GreenScape Landscaping. All rights reserved.
+  </footer>
+
+  <script>
+    function calculateEstimate() {
+      const size = parseFloat(document.getElementById('yardSize').value);
+      const options = Array.from(document.getElementById('designOptions').selectedOptions).map(opt => opt.value);
+
+      const baseRate = 2; // $2 per sq ft
+      const optionRates = {
+        lawn: 1.5,
+        garden: 2,
+        irrigation: 3,
+        patio: 4
+      };
+
+      if (isNaN(size) || size <= 0) {
+        document.getElementById('estimateResult').innerText = 'Please enter a valid yard size.';
+        return;
+      }
+
+      let total = size * baseRate;
+      options.forEach(opt => {
+        total += size * optionRates[opt];
+      });
+
+      document.getElementById('estimateResult').innerText = `Estimated Cost: $${total.toFixed(2)}`;
+    }
+
+    function handleForm(event) {
+      event.preventDefault();
+      alert('Thank you for your inquiry! We will contact you soon.');
+    }
+  </script>
+
+</body>
+</html>
